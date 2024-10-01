@@ -30,11 +30,6 @@ const schema = new mongoose.Schema({
         type : String,
         required : true,
     },
-    confirmPassword : {
-        type : String,
-        required : true,
-    }
-
 }, {timestamps: true});
 
 const model = mongoose.model('User',schema)
