@@ -42,7 +42,6 @@ const register =async (req, res) =>{
 }
 const login =async (req, res) =>{
     const { identifier , password } = req.body;
-
     const user = await userModel.findOne({
         $or : [{username : identifier} , {email : identifier}]
     }).lean();
@@ -51,7 +50,6 @@ const login =async (req, res) =>{
             message : 'User not found with this email/username!'
         });
     }
-
     const passwordValidator = await bcrypt.compare(password,user.password)
     if(!passwordValidator){
         return res.status(422).json({
@@ -67,8 +65,6 @@ const login =async (req, res) =>{
         message : 'You login successfully',
         accessToken
     });
-
-
 }
 const getMe =async (req, res) =>{
 

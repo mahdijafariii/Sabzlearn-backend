@@ -1,5 +1,6 @@
 const banUserModel = require('../models/ban_user')
 const userModel = require('../models/users')
+
 const banUser =async (req,res)=>{
     const {id}  = req.body;
     const user = await userModel.findOne({_id : id}).lean();
