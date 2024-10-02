@@ -67,8 +67,6 @@ const login =async (req, res) =>{
     });
 }
 const getMe =async (req, res) =>{
-
-
 }
 
 module.exports = {register , getMe , login}
