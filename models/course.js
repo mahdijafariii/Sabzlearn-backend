@@ -1,4 +1,4 @@
-const {default : mongoose} = require('mongoose');
+const {default: mongoose} = require('mongoose');
 
 const schema = mongoose.Schema({
         name: {
@@ -17,45 +17,45 @@ const schema = mongoose.Schema({
             type: String,
             required: true
         },
-    href: {
-        type: String,
-        required: true
-    },
-    price: {
-        type: Number,
-        required: true
-    },
-    status: {
-        type: String,
-        required: true
-    },
-    discount: {
-        type: Number,
-        required: true
-    },
-    categoryId: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Category',
-        required :true
-    },
-    creator: {
-        type: mongoose.Types.ObjectId,
-        ref : 'User',
-        required: true
-    },
+        href: {
+            type: String,
+            required: true
+        },
+        price: {
+            type: Number,
+            required: true
+        },
+        status: {
+            type: String,
+            required: true
+        },
+        discount: {
+            type: Number,
+            required: true
+        },
+        categoryId: {
+            type: mongoose.Types.ObjectId,
+            ref: 'Category',
+            required: true
+        },
+        creator: {
+            type: mongoose.Types.ObjectId,
+            ref: 'User',
+            required: true
+        },
     }, {timestamps: true}
 );
 
-schema.virtuals('sessions',{
+schema.virtuals('sessions', {
     localField: '_id',
-    ref : 'Session',
-    foreignFiled : 'course'
+    ref: 'Session',
+    foreignFiled: 'course'
 })
 
-schema.virtuals('comments',{
+schema.virtuals('comments', {
     localField: '_id',
-    ref : 'Comment',
-    foreignFiled : 'course'
+    ref: 'Comment',
+    foreignFiled: 'course'
 })
 
 
