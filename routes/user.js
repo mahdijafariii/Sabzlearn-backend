@@ -8,7 +8,8 @@ const router = express.Router()
 router.route('/ban-user').post(authMiddleware,isAdminMiddleware,controller.banUser);
 router.route('/users').get(authMiddleware,isAdminMiddleware,controller.getAll);
 router.route('/delete/').delete(authMiddleware,isAdminMiddleware,controller.deleteUser);
-router.route('/changeRole').post(authMiddleware,isAdminMiddleware,controller.changeRole);
+router.route('/change-role').post(authMiddleware,isAdminMiddleware,controller.changeRole);
+router.route('/update-info').put(authMiddleware,controller.updateInfo)
 
 
 module.exports = router
