@@ -8,6 +8,8 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const authRouter = require('./routes/auth')
 const userRouter = require('./routes/user')
+const categoryRouter = require('./routes/category')
+
 
 
 app.use(
@@ -20,4 +22,6 @@ app.use(bodyParser.json());
 
 app.use("/auth", authRouter);
 app.use("/user",userRouter)
+app.use("/category",categoryRouter)
+
 module.exports = app;
