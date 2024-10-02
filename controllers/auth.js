@@ -41,6 +41,32 @@ const register =async (req, res) =>{
     return res.status(201).json({user , accessToken});
 }
 const login =async (req, res) =>{
+    const { identifier , password } = req.body;
+
+    const user = await userModel.findOne({
+        $or : [{username : identifier} , {email : identifier}]
+    }).lean();
+    if(!user){
+        return res.status(404).json({
+            message : 'User not found with this email/username!'
+        });
+    }
+
+    const passwordValidator = await bcrypt.compare(password,user.password)
+    if(!passwordValidator){
+        return res.status(422).json({
+            message : 'Password is invalid!'
+        });
+    }
+
+    const accessToken = jwt.sign({id : user._id }, process.env.JWT_SECRET ,{
+        expiresIn: '30 days'
+    })
+
+    return res.status(200).json({
+        message : 'You login successfully',
+        accessToken
+    });
 
 
 }
