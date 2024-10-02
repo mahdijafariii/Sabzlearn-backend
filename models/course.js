@@ -46,16 +46,16 @@ const schema = mongoose.Schema({
     }, {timestamps: true}
 );
 
-schema.virtuals('sessions', {
+schema.virtual('sessions', {
     localField: '_id',
     ref: 'Session',
-    foreignFiled: 'course'
+    foreignField: 'course'
 })
 
-schema.virtuals('comments', {
+schema.virtual('comments', {
     localField: '_id',
     ref: 'Comment',
-    foreignFiled: 'course'
+    foreignField: 'course'
 })
 
 
