@@ -86,13 +86,19 @@ const getCourseInfo = async (req, res) => {
         })
         .count();
 
-    res.json({ course, sessions, comments, courseStudentsCount });
+    const isUserRegisteredToThisCourse = !!(await courseUserModel.findOne({
+        user: req.user._id,
+        course: course._id,
+    }));
+
+    res.json({ course, sessions, comments, courseStudentsCount ,isUserRegisteredToThisCourse});
 };
 
 const getAllSessions = async (req, res) => {
     const sessions = await sessionModel.find({}).lean();
     res.status(200).json(sessions)
 }
+
 
 const getSessionInfo = async (req, res) => {
     const course = await courseModel.findOne({href: req.params.href})
