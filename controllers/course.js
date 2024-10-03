@@ -70,13 +70,13 @@ const getCourseSessions = async (req, res) => {
 
 const getCourseInfo = async (req, res) => {
     const course = await courseModel
-        .findOne({ href: req.params.href })
+        .findOne({href: req.params.href})
         .populate("creator", "-password")
         .populate("categoryID");
 
-    const sessions = await sessionModel.find({ course: course._id }).lean();
+    const sessions = await sessionModel.find({course: course._id}).lean();
     const comments = await commentsModel
-        .find({ course: course._id, isAccept: 1 })
+        .find({course: course._id, isAccept: 1})
         .populate("creator", "-password")
         .lean();
 
@@ -91,7 +91,7 @@ const getCourseInfo = async (req, res) => {
         course: course._id,
     }));
 
-    res.json({ course, sessions, comments, courseStudentsCount ,isUserRegisteredToThisCourse});
+    res.json({course, sessions, comments, courseStudentsCount, isUserRegisteredToThisCourse});
 };
 
 const getAllSessions = async (req, res) => {
@@ -182,14 +182,13 @@ const removeCourse = async (req, res) => {
     return res.json(deletedCourse);
 };
 
-const getRelatedCategory = async (req,res) =>{
+const getRelatedCategory = async (req, res) => {
     const {href} = req.params;
     const course = await courseModel.findOne({href}).lean();
-    let relatedCourse = await courseModel.find({categoryId : course.categoryId}).lean()
+    let relatedCourse = await courseModel.find({categoryId: course.categoryId}).lean()
     relatedCourse = relatedCourse.filter(course => course.href !== href);
     return res.status(200).json(relatedCourse);
-}
-
+} // get all course that related with this course in category
 
 
 module.exports = {

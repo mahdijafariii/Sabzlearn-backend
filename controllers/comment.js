@@ -69,8 +69,7 @@ const acceptComment = async (req,res)=>{
         })
     }
     return res.status(200).json({
-        message : 'comment accepted successfully ! ',
-        comment
+        message : 'comment accepted successfully ! '
     })
 }
 
@@ -91,10 +90,36 @@ const rejectComment = async (req,res)=>{
         })
     }
     return res.status(200).json({
-        message : 'comment rejected successfully ! ',
-        comment
+        message : 'comment rejected successfully ! '
     })
+}
+const answerComment = async (req ,res)=>{
+    const { body } = req.body;
+
+    const acceptedComment = await commentModel.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+            isAccept: 1,
+        }
+    );
+
+    if (!acceptedComment) {
+        return res.status(404).json({
+            message: "Comment not found !!",
+        });
+    }
+
+    const answerComment = await commentModel.create({
+        body,
+        course: acceptedComment.course,
+        creator: req.user._id,
+        isAnswer: 1,
+        isAccept: 1, // 1 => show as public
+        mainCommentID: req.params.id,
+    });
+
+    return res.status(201).json(answerComment);
 }
 
 
-module.exports = {addComment, deleteComment, acceptComment, rejectComment}
+module.exports = {addComment, deleteComment, acceptComment, rejectComment ,answerComment}

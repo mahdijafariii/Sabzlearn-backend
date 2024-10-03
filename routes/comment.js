@@ -8,9 +8,8 @@ const router = express.Router()
 
 router.route('/add-comment').post(authMiddleware,controller.addComment);
 router.route('/:id/').delete(authMiddleware,isAdminMiddleware,controller.deleteComment);
-
-router.route('/:id').get(authMiddleware,controller.addComment);
-router.route('/update-comment').put(authMiddleware,controller.addComment);
+router.route('/:id/accept').put(authMiddleware,isAdminMiddleware,controller.acceptComment);
+router.route('/:id/reject').put(authMiddleware,isAdminMiddleware,controller.rejectComment);
 
 
 module.exports = router
