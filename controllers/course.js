@@ -91,7 +91,28 @@ const getCourseInfo = async (req, res) => {
         course: course._id,
     }));
 
-    res.json({course, sessions, comments, courseStudentsCount, isUserRegisteredToThisCourse});
+    // این کار کردیم که کامنت پاسخ بشه زیر مجموعه یکی از خود کامنت ها
+    let allComments = [];
+
+    comments.forEach((comment) => {
+        comments.forEach((answerComment) => {
+            if (String(comment._id) === String(answerComment.mainCommentID)) {
+                allComments.push({
+                    ...comment, // یعنی کل اطلعات قبلی بریز دوباره + سه پروپرتی جدید که پایین ست کردیم
+                    course: comment.course.name,
+                    creator: comment.creator.name,
+                    answerComment,
+                });
+            }
+        });
+    });
+    res.json({
+        course,
+        sessions,
+        comments: allComments,
+        courseStudentsCount,
+        isUserRegisteredToThisCourse,
+    });
 };
 
 const getAllSessions = async (req, res) => {
