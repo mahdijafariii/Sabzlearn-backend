@@ -6,7 +6,7 @@ const { isValidObjectId} = require("mongoose");
 const addCourseValidator = require("../validators/addCourse");
 const uploader = require('../utils/uploader')
 const addCommentValidator = require("../validators/addComment");
-const mongoose = require("mongoose");
+const {default : mongoose} = require("mongoose");
 
 
 
@@ -17,7 +17,7 @@ const addComment = async (req,res) =>{
     }
     const {body , courseHref , score} = req.body;
     const course = await courseModel.findOne({href : courseHref} ).lean()
-    const comment = commentModel.create({
+    const comment =await commentModel.create({
         body,
         course : course._id,
         creator : req.user._id,
@@ -32,4 +32,24 @@ const addComment = async (req,res) =>{
     })
 }
 
-module.exports = {addComment}
+const deleteComment = async (req,res)=>{
+    const {id} = req.params;
+    const isObjectIDValid = mongoose.Types.ObjectId.isValid(id);
+    if (!isObjectIDValid) {
+        return res.status(409).json({
+            messgae: "Course ID is not valid !!",
+        });
+    }
+    const comment = await commentModel.findOneAndDelete({_id : id}).lean();
+    if(!comment){
+        return res.status(404).json({
+            message : 'comment not found !'
+        })
+    }
+    return res.status(200).json({
+        message : 'comment deleted successfully ! ',
+        comment
+    })
+}
+
+module.exports = {addComment, deleteComment}

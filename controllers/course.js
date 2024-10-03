@@ -158,8 +158,38 @@ const getRelationCourse = async (req, res) => {
     const {href} = req.params;
     const course = await courseModel.find({href}).lean();
     return res.status(200).json(course);
-
 }
+
+const removeCourse = async (req, res) => {
+    const isObjectIDValid = mongoose.Types.ObjectId.isValid(req.params.id);
+
+    if (!isObjectIDValid) {
+        return res.status(409).json({
+            messgae: "Course ID is not valid !!",
+        });
+    }
+
+    const deletedCourse = await courseModel.findOneAndRemove({
+        _id: req.params.id,
+    });
+
+    if (!deletedCourse) {
+        return res.status(404).json({
+            messgae: "Course not found !!",
+        });
+    }
+
+    return res.json(deletedCourse);
+};
+
+const getRelatedCategory = async (req,res) =>{
+    const {href} = req.params;
+    const course = await courseModel.findOne({href}).lean();
+    let relatedCourse = await courseModel.find({categoryId : course.categoryId}).lean()
+    relatedCourse = relatedCourse.filter(course => course.href !== href);
+    return res.status(200).json(relatedCourse);
+}
+
 
 
 module.exports = {
@@ -171,5 +201,7 @@ module.exports = {
     deleteSession,
     registerCourse,
     getRelationCourse,
-    getCourseInfo
+    getCourseInfo,
+    removeCourse,
+    getRelatedCategory
 }

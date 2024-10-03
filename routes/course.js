@@ -23,13 +23,17 @@ router.route('/:href/').post(authMiddleware,coursesController.getRelationCourse)
 
 router.route("/:href/course-info").get(coursesController.getCourseInfo);
 
+router.route("/:id").delete(authMiddleware, isAdminMiddleware, coursesController.removeCourse);
+
+router.route("/related/:href").get(coursesController.getRelatedCategory)
+
 router.route('/:id/add-session').post(authMiddleware,isAdminMiddleware,coursesController.creatSession)
 
-router.route('/:id/get-course-sessions').get(authMiddleware,isAdminMiddleware,coursesController.getCourseSessions)
+router.route('/:id/get-course-sessions').get(coursesController.getCourseSessions)
 
-router.route('/get-all-sessions').get(authMiddleware,isAdminMiddleware,coursesController.getAllSessions)
+router.route('/get-all-sessions').get(coursesController.getAllSessions)
 
-router.route('/:href/session-info/:sessionId').get(authMiddleware,isAdminMiddleware,coursesController.getSessionInfo)
+router.route('/:href/session-info/:sessionId').get(coursesController.getSessionInfo)
 
 router.route('/sessions/:sessionId').delete(authMiddleware,isAdminMiddleware,coursesController.deleteSession)
 
