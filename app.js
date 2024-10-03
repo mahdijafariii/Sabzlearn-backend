@@ -9,7 +9,9 @@ const bodyParser = require("body-parser");
 const authRouter = require('./routes/auth')
 const userRouter = require('./routes/user')
 const categoryRouter = require('./routes/category')
-const courseRouter = require('./routes/course')
+const courseRouter = require('./routes/course');
+const commentRouter = require('./routes/comment')
+
 
 
 
@@ -26,6 +28,7 @@ app.use("/auth", authRouter);
 app.use("/user",userRouter)
 app.use("/category",categoryRouter)
 app.use("/course",courseRouter)
+app.use('/comment' , commentRouter)
 
 
 module.exports = app;
