@@ -52,4 +52,49 @@ const deleteComment = async (req,res)=>{
     })
 }
 
-module.exports = {addComment, deleteComment}
+const acceptComment = async (req,res)=>{
+    const {id} = req.params;
+    const isObjectIDValid = mongoose.Types.ObjectId.isValid(id);
+    if (!isObjectIDValid) {
+        return res.status(409).json({
+            messgae: "Course ID is not valid !!",
+        });
+    }
+    const comment = await commentModel.findByIdAndUpdate({_id : id},{
+        isAccept : 1
+    }).lean();
+    if(!comment){
+        return res.status(404).json({
+            message : 'comment not found !'
+        })
+    }
+    return res.status(200).json({
+        message : 'comment accepted successfully ! ',
+        comment
+    })
+}
+
+const rejectComment = async (req,res)=>{
+    const {id} = req.params;
+    const isObjectIDValid = mongoose.Types.ObjectId.isValid(id);
+    if (!isObjectIDValid) {
+        return res.status(409).json({
+            messgae: "Course ID is not valid !!",
+        });
+    }
+    const comment = await commentModel.findByIdAndUpdate({_id : id},{
+        isAccept : 0
+    }).lean();
+    if(!comment){
+        return res.status(404).json({
+            message : 'comment not found !'
+        })
+    }
+    return res.status(200).json({
+        message : 'comment rejected successfully ! ',
+        comment
+    })
+}
+
+
+module.exports = {addComment, deleteComment, acceptComment, rejectComment}
