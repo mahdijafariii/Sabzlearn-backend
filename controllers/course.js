@@ -70,5 +70,25 @@ const getSessionInfo = async (req,res) =>{
     res.status(200).json({session,sessions})
 }
 
+const deleteSession = async (req,res)=>{
+    const {sessionId} = req.params;
+    const validCourseId = isValidObjectId(sessionId);
+    if(!validCourseId){
+        return res.status(422).json({
+            message : "Course Id is not valid !"
+        });
+    }
+    const session = await sessionModel.findOneAndDelete({_id : sessionId})
+    if(!session){
+        return res.status(404).json({
+            message : 'session not found !!'
+        })
+    }
+    return res.status(200).json({
+        message : 'session deleted successfully !',
+        session
+    })
+}
 
-module.exports = {addCourse , creatSession ,getCourseSessions , getAllSessions , getSessionInfo}
+
+module.exports = {addCourse , creatSession ,getCourseSessions , getAllSessions , getSessionInfo , deleteSession}
