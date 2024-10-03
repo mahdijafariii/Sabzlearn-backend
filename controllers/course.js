@@ -211,6 +211,16 @@ const getRelatedCategory = async (req, res) => {
     return res.status(200).json(relatedCourse);
 } // get all course that related with this course in category
 
+const getPresellCourse = async (req, res)=>{
+    const courses = await courseModel.find({status : "presell"}).lean();
+    return res.status(200).json({
+        message : "This is presell courses",
+        courses
+    })
+
+
+}
+
 
 module.exports = {
     addCourse,
@@ -223,5 +233,6 @@ module.exports = {
     getRelationCourse,
     getCourseInfo,
     removeCourse,
-    getRelatedCategory
+    getRelatedCategory,
+    getPresellCourse
 }

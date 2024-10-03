@@ -27,6 +27,8 @@ router.route("/:id").delete(authMiddleware, isAdminMiddleware, coursesController
 
 router.route("/related/:href").get(coursesController.getRelatedCategory)
 
+router.route("/presell").get(coursesController.getPresellCourse)
+
 router.route('/:id/add-session').post(authMiddleware,isAdminMiddleware,coursesController.creatSession)
 
 router.route('/:id/get-course-sessions').get(coursesController.getCourseSessions)
