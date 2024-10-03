@@ -19,11 +19,15 @@ router
     );
 router.route('/:id/register').post(authMiddleware,coursesController.registerCourse)
 
+router.route('/:href/').post(authMiddleware,coursesController.getRelationCourse)
+
+router.route("/:href/course-info").get(coursesController.getCourseInfo);
+
 router.route('/:id/add-session').post(authMiddleware,isAdminMiddleware,coursesController.creatSession)
 
 router.route('/:id/get-course-sessions').get(authMiddleware,isAdminMiddleware,coursesController.getCourseSessions)
 
-router.route('/get-course-sessions').get(authMiddleware,isAdminMiddleware,coursesController.getAllSessions)
+router.route('/get-all-sessions').get(authMiddleware,isAdminMiddleware,coursesController.getAllSessions)
 
 router.route('/:href/session-info/:sessionId').get(authMiddleware,isAdminMiddleware,coursesController.getSessionInfo)
 
