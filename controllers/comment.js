@@ -121,5 +121,29 @@ const answerComment = async (req ,res)=>{
     return res.status(201).json(answerComment);
 }
 
+const getAllComment = async (req,res) =>{
+    const comments = await commentModel.find({}).populate('course').populate('creator' , '-password').lean()
 
-module.exports = {addComment, deleteComment, acceptComment, rejectComment ,answerComment}
+    let allComments = [];
+    let commentMap = {};
+    comments.forEach(comment => {
+        commentMap[comment._id] = {
+            ...comment,
+            answerComments: [],
+        };
+    });
+
+    comments.forEach(comment => {
+        if (comment.mainCommentID) {
+            commentMap[comment.mainCommentID].answerComments.push(commentMap[comment._id]);
+        }
+    });
+
+    allComments = Object.values(commentMap).filter(comment => !comment.mainCommentID);
+
+    return res.json(allComments);
+
+
+}
+
+module.exports = {addComment, deleteComment, acceptComment, rejectComment ,answerComment, getAllComment}
