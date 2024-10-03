@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const {default : mongoose} = require("mongoose");
 
 const schema = mongoose.Schema(
     {
@@ -12,7 +12,7 @@ const schema = mongoose.Schema(
             required: true,
         },
         creator: {
-            type: mongoose.type.ObjectId,
+            type: mongoose.Types.ObjectId,
             ref: "User",
             required: true,
         },

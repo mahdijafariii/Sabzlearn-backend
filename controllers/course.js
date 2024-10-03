@@ -1,6 +1,7 @@
 const courseModel = require('../models/course')
 const sessionModel = require('../models/session')
 const userModel = require('../models/users')
+const courseUser = require('../models/course-user');
 const { isValidObjectId} = require("mongoose");
 const addCourseValidator = require("../validators/addCourse");
 const uploader = require('../utils/uploader')
@@ -90,5 +91,32 @@ const deleteSession = async (req,res)=>{
     })
 }
 
+const registerCourse = async (req,res) =>{
+    const {id} = req.params;
+    const validCourseId = isValidObjectId(id);
+    if(!validCourseId){
+        return res.status(422).json({
+            message : "Course Id is not valid !"
+        });
+    }
 
-module.exports = {addCourse , creatSession ,getCourseSessions , getAllSessions , getSessionInfo , deleteSession}
+    const isUserRegistered = await courseUser.find({course : id, user : req.user._id,}).lean();
+    if(!isUserRegistered){
+        return res.status(422).json({
+            message : "User Registered before !"
+        });
+    }
+    const user_course = await courseUser.create({
+        course : id,
+        user : req.user._id,
+        price : req.body.price,
+    })
+    return res.status(200).json({
+        message : "registered successfully !",
+        user_course
+    });
+
+}
+
+
+module.exports = {addCourse , creatSession ,getCourseSessions , getAllSessions , getSessionInfo , deleteSession ,registerCourse}

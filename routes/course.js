@@ -17,6 +17,7 @@ router
         isAdminMiddleware,
         coursesController.addCourse
     );
+router.route('/:id/register').post(authMiddleware,coursesController.registerCourse)
 
 router.route('/:id/add-session').post(authMiddleware,isAdminMiddleware,coursesController.creatSession)
 
