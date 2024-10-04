@@ -1,5 +1,6 @@
 const contactModel = require('../models/contact')
 const {default : mongoose} = require("mongoose");
+const addCommentValidator = require("../validators/addComment");
 
 const getAll = async (req,res)=>{
     const contacts = await contactModel.find({}).lean();
@@ -23,6 +24,10 @@ const remove = async (req,res)=>{
 
 const create = async (req,res)=>{
     const {name , email , phone , body} = req.body;
+    const check = addCommentValidator(req.body)
+    if (check !== true) {
+        return res.status(422).json(check)
+    }
     const contact = await contactModel.create({
         name,email,phone,body , answer : 0
     })

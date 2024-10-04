@@ -11,6 +11,7 @@ const userRouter = require('./routes/user')
 const categoryRouter = require('./routes/category')
 const courseRouter = require('./routes/course');
 const commentRouter = require('./routes/comment')
+const contactRouter = require('./routes/contact')
 
 
 
@@ -29,6 +30,7 @@ app.use("/user",userRouter)
 app.use("/category",categoryRouter)
 app.use("/course",courseRouter)
 app.use('/comment' , commentRouter)
+app.use('/contact',contactRouter)
 
 
 module.exports = app;
