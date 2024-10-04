@@ -21,6 +21,7 @@ const schema = mongoose.Schema(
         },
         uses: {
             type: Number, // => 2
+            default : 0 ,
             required: true,
         },
         creator: {
