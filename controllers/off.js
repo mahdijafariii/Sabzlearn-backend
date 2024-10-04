@@ -29,9 +29,35 @@ const create = async (req,res)=>{
     })
 }
 const getOne = async (req,res)=>{
+    const {course} = req.body;
+    const {code} = req.params;
+    const isObjectIDValid = mongoose.Types.ObjectId.isValid(course);
+    if (!isObjectIDValid) {
+        return res.status(409).json({
+            message: "Course ID is not valid !!",
+        });
+    }
 
-
-
+    const discountCode = await offModel.find({code , course}).lean()
+    if(!code){
+        return res.status(404).json({
+            message : "discount code not found !"
+        })
+    }
+    if(!(String(discountCode.course)===String(course))){
+        return res.status(422).json({
+            message: "This discount code is not for this course !"
+        })
+    }
+    if(discountCode.uses === discountCode.max){
+        return res.status(409).json({
+            message : "discount code already used !"
+        })
+    }
+    const updateDiscountCode = await offModel.findOneAndUpdate({code , course},{
+        uses : discountCode.uses + 1
+    }).lean()
+    return res.status(200).json(discountCode)
 }
 const remove = async (req,res)=>{
     const {id} = req.params;
