@@ -6,7 +6,10 @@ const isAdminMiddleware = require("../middelware/isAdmin");
 const router = express.Router();
 
 router.route("/").post(authMiddleware, isAdminMiddleware, contactsController.createNotification)
-router.route('/:adminId').get(authMiddleware, isAdminMiddleware,contactsController.getNotification);
+router.route('/my').get(authMiddleware, isAdminMiddleware,contactsController.getMyNotification);
 router.route("/see/:id").put(authMiddleware, isAdminMiddleware,contactsController.seenNotification);
+router.route("/:id").delete(authMiddleware, isAdminMiddleware,contactsController.removeNotification);
+router.route("/all").get(authMiddleware, isAdminMiddleware,contactsController.getAllNotification);
+
 
 module.exports = router;

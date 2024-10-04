@@ -21,7 +21,7 @@ const createNotification = async (req,res) =>{
         message : "notification send successfully !",
     })
 }
-const getNotification = async (req,res) =>{
+const getMyNotification = async (req, res) =>{
     const {_id} = req.user;
     const isObjectIDValid = mongoose.Types.ObjectId.isValid(admin);
     if (!isObjectIDValid) {
@@ -59,4 +59,4 @@ const getAllNotification = async (req,res) =>{
     return res.status(200).json(notifications);
 }
 
-module.exports = {getNotification, createNotification, seenNotification};
+module.exports = {getMyNotification, createNotification, seenNotification ,removeNotification , getAllNotification};
