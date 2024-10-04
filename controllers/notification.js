@@ -22,14 +22,14 @@ const createNotification = async (req,res) =>{
     })
 }
 const getNotification = async (req,res) =>{
-    const {adminId} = req.params;
+    const {_id} = req.user;
     const isObjectIDValid = mongoose.Types.ObjectId.isValid(admin);
     if (!isObjectIDValid) {
         return res.status(409).json({
             message: "admin ID is not valid !!",
         });
     }
-    const notifications = await notificationModel.find({admin : adminId} ).lean();
+    const notifications = await notificationModel.find({admin : _id} ).lean();
     return res.status(200).json(notifications);
 }
 const seenNotification = async (req,res) =>{
@@ -41,4 +41,22 @@ const seenNotification = async (req,res) =>{
         message: "notification sawed successfully !",
     });
 }
-module.exports = {}
+
+const removeNotification = async (req,res) =>{
+    const { id } = req.body;
+    const isObjectIDValid = mongoose.Types.ObjectId.isValid(admin);
+    if (!isObjectIDValid) {
+        return res.status(409).json({
+            message: "notification ID is not valid !!",
+        });
+    }
+    const notifications = await notificationModel.findOneAndDelete({_id : id} ).lean();
+    return res.status(200).json(notifications);
+
+}
+const getAllNotification = async (req,res) =>{
+    const notifications = await notificationModel.find({}).lean();
+    return res.status(200).json(notifications);
+}
+
+module.exports = {getNotification, createNotification, seenNotification};

@@ -12,6 +12,7 @@ const categoryRouter = require('./routes/category')
 const courseRouter = require('./routes/course');
 const commentRouter = require('./routes/comment')
 const contactRouter = require('./routes/contact')
+const notificationRouter = require("./routes/notification");
 
 
 
@@ -31,6 +32,6 @@ app.use("/category",categoryRouter)
 app.use("/course",courseRouter)
 app.use('/comment' , commentRouter)
 app.use('/contact',contactRouter)
-
+app.use('/notification',notificationRouter)
 
 module.exports = app;
