@@ -75,4 +75,4 @@ const remove = async (req,res)=>{
 }
 
 
-module.exports = {getAll , setOnAll , create}
+module.exports = {getAll , setOnAll , create , getOne , remove}
