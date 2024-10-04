@@ -33,6 +33,12 @@ const getNotification = async (req,res) =>{
     return res.status(200).json(notifications);
 }
 const seenNotification = async (req,res) =>{
-
+    const {id} = req.params;
+    const updateNotification = await notificationModel.findOneAndUpdate({_id : id},{
+        seen : 1,
+    })
+    return res.status(200).json({
+        message: "notification sawed successfully !",
+    });
 }
 module.exports = {}
