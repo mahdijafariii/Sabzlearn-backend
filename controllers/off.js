@@ -1,6 +1,7 @@
 const offModel = require('../models/off')
 const coursesModel = require('../models/course')
 const addDiscountValidator = require("../validators/addOff");
+const {default: mongoose} = require("mongoose");
 
 const getAll = async (req,res)=>{
     const offs = await offModel.find({}).lean().populate("course", "name href").populate("creator", "name");
@@ -30,14 +31,22 @@ const create = async (req,res)=>{
 const getOne = async (req,res)=>{
 
 
+
 }
 const remove = async (req,res)=>{
-
-
+    const {id} = req.params;
+    const isObjectIDValid = mongoose.Types.ObjectId.isValid(id);
+    if (!isObjectIDValid) {
+        return res.status(409).json({
+            message: "ID is not valid !!",
+        });
+    }
+    const discount = await offModel.findOneAndDelete({_id : id}).lean();
+    return res.status(200).json({
+        message : "Discount code remove successfully ! ",
+        discount
+    })
 }
-const temp = async (req,res)=>{
 
-
-}
 
 module.exports = {getAll , setOnAll , create}

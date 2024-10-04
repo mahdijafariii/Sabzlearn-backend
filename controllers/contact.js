@@ -14,7 +14,7 @@ const remove = async (req,res)=>{
     const isObjectIDValid = mongoose.Types.ObjectId.isValid(id);
     if (!isObjectIDValid) {
         return res.status(409).json({
-            messgae: "ID is not valid !!",
+            message: "ID is not valid !!",
         });
     }
     const contact = await contactModel.findOneAndDelete({_id : id}).lean()
