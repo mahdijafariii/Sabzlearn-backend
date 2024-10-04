@@ -35,9 +35,6 @@ const create = async (req,res)=>{
     return res.status(200).json({
         message : "Contacts send successfully !",
     })
-
-
-
 }
 
 const answer = async (req,res)=>{
