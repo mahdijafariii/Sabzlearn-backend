@@ -18,6 +18,6 @@ const schema = mongoose.Schema({
     }, {timestamps: true}
 );
 
-const model = mongoose.model('Session', schema);
+const model = mongoose.model('Notification', schema);
 
 module.exports = model;
