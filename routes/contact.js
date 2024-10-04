@@ -9,6 +9,6 @@ router.route("/").get(authMiddleware, isAdminMiddleware, contactsController.getA
 router.route('/').post(contactsController.create);
 router.route("/:id").delete(authMiddleware, isAdminMiddleware,contactsController.remove);
 
-// router.route("/answer").post(authMiddleware, isAdminMiddleware, contactsController.answer);
+router.route("/answer").post(authMiddleware, isAdminMiddleware, contactsController.answer);
 
 module.exports = router;

@@ -78,4 +78,4 @@ const answer = async (req,res)=>{
 }
 
 
-module.exports = {getAll, remove , create}
+module.exports = {getAll, remove , create ,answer}
