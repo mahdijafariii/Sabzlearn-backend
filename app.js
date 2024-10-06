@@ -14,6 +14,8 @@ const commentRouter = require('./routes/comment')
 const contactRouter = require('./routes/contact')
 const notificationRouter = require("./routes/notification");
 const offRouter = require("./routes/off");
+const articleRouter = require("./routes/article");
+
 
 
 
@@ -36,6 +38,8 @@ app.use('/comment' , commentRouter)
 app.use('/contact',contactRouter)
 app.use('/notification',notificationRouter)
 app.use('/off',offRouter)
+app.use('/article',articleRouter)
+
 
 
 module.exports = app;

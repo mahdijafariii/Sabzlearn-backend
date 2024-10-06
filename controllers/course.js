@@ -1,10 +1,8 @@
 const courseModel = require('../models/course')
 const sessionModel = require('../models/session')
-const userModel = require('../models/users')
 const courseUser = require('../models/course-user');
 const {isValidObjectId} = require("mongoose");
 const addCourseValidator = require("../validators/addCourse");
-const uploader = require('../utils/uploader')
 
 const addCourse = async (req, res) => {
     const check = addCourseValidator(req.body)

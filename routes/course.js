@@ -10,9 +10,7 @@ const router = express.Router();
 router
     .route("/add-course")
     .post(
-        multer({ storage: multerStorage, limits: { fileSize: 1000000000 } }).single(
-            "cover"
-        ),
+        multer({ storage: multerStorage.coverDisk, limits: { fileSize: 1000000000 } }).single("cover"),
         authMiddleware,
         isAdminMiddleware,
         coursesController.addCourse
