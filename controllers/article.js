@@ -31,8 +31,9 @@ const create = async (req,res) =>{
     })
 }
 const getOne = async (req,res) =>{
-
-
+    const {href} = req.params;
+    const articles = await articleModel.find({href}).lean()
+    return res.status(200).json(articles);
 }
 const remove = async (req,res) =>{
 
