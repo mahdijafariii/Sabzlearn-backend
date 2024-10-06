@@ -22,7 +22,7 @@ const create = async (req,res) =>{
 }
 
 const userTickets = async (req,res) =>{
-    const userTickets = await ticketModel.find({user : req.user._id}).populate("departmentID").populate("departmentSub").lean();
+    const userTickets = await ticketModel.find({user : req.user._id}).sort({_id : -1}).populate("departmentID").populate("departmentSub").lean();
     return res.status(200).json(userTickets);
 }
 
@@ -92,7 +92,7 @@ const getAnswer = async (req,res) =>{
     const answerTicket = await ticketModel.find({parent : id , isAnswer : 1}).lean();
     return res.status(200).json({
         ticket : ticket,
-        answerTicket : answerTicket
+        answerTicket : answerTicket ? answerTicket : null
     })
 }
 
