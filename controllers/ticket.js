@@ -5,7 +5,7 @@ const addTicketValidator = require("../validators/addTicket");
 const {default: mongoose} = require("mongoose");
 
 const getAll = async (req,res) =>{
-    const getAllTickets = await ticketModel.find({}).populate("Department").populate("DepartmentSub").lean();
+    const getAllTickets = await ticketModel.find({}).populate("departmentID").populate("departmentSub").populate("course" , "name").lean();
     return res.status(200).json(getAllTickets);
 }
 
@@ -22,7 +22,8 @@ const create = async (req,res) =>{
 }
 
 const userTickets = async (req,res) =>{
-
+    const userTickets = await ticketModel.find({user : req.user._id}).populate("departmentID").populate("departmentSub").lean();
+    return res.status(200).json(userTickets);
 }
 
 const departments = async (req,res) =>{
