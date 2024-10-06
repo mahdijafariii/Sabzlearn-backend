@@ -16,6 +16,8 @@ const notificationRouter = require("./routes/notification");
 const offRouter = require("./routes/off");
 const articleRouter = require("./routes/article");
 const orderRouter = require("./routes/order");
+const ticketRouter = require("./routes/ticket");
+
 app.use(
     "/courses/covers",
     express.static(path.join(__dirname, "public", "courses", "covers"))
@@ -34,6 +36,7 @@ app.use('/notification',notificationRouter)
 app.use('/off',offRouter)
 app.use('/article',articleRouter)
 app.use('/order',orderRouter)
+app.use('/ticket',ticketRouter)
 
 
 
