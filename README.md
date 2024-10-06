@@ -7,9 +7,7 @@ The SabzLearn backend project! This Node.js application uses Express to power th
 - [Features](#features)
 - [Getting Started](#getting-started)
 - [API Routes](#api-routes)
-- [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Features
 
