@@ -17,6 +17,7 @@ const offRouter = require("./routes/off");
 const articleRouter = require("./routes/article");
 const orderRouter = require("./routes/order");
 const ticketRouter = require("./routes/ticket");
+const menuRouter = require("./routes/menu");
 
 app.use(
     "/courses/covers",
@@ -37,7 +38,5 @@ app.use('/off',offRouter)
 app.use('/article',articleRouter)
 app.use('/order',orderRouter)
 app.use('/ticket',ticketRouter)
-
-
-
+app.use('/menu',menuRouter)
 module.exports = app;

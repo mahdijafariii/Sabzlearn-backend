@@ -69,7 +69,7 @@ const remove = async (req,res)=>{
     }
     const discount = await offModel.findOneAndDelete({_id : id}).lean();
     return res.status(200).json({
-        message : "Discount code remove successfully ! ",
+        message : "Discount code removed successfully ! ",
         discount
     })
 }
