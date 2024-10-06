@@ -24,7 +24,7 @@ const create = async (req,res) =>{
         cover : req.file.filename,
         categoryId,
         publish,
-        creator : req.user.id
+        creator : req.user._id
     })
     return res.status(201).json({
         message : 'article saved successfully !'
