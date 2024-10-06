@@ -48,7 +48,15 @@ const setAnswer = async (req,res) =>{
 }
 
 const getOne = async (req,res) =>{
-
+    const {id} = req.params;
+    const isObjectIDValid = mongoose.Types.ObjectId.isValid(id);
+    if (!isObjectIDValid) {
+        return res.status(409).json({
+            message: "ID is not valid !!",
+        });
+    }
+    const ticket = await ticketModel.findById(id).lean();
+    return res.status(200).json(ticket);
 }
 
 const getAnswer = async (req,res) =>{
