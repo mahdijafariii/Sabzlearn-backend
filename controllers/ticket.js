@@ -44,25 +44,27 @@ const departments_sub = async (req,res) =>{
 }
 
 const setAnswer = async (req,res) =>{
-    const {id} = req.params;
-    const ticket = await ticketModel.findById(id).lean();
-    const check = addTicketValidator(req.body)
-    if (check !== true) {
-        return res.status(422).json(check)
-    }
+    const {body, ticketId} = req.body;
+    const ticket = await ticketModel.findOne({_id : ticketId}).lean();
     const newTicketData = {
+        title : "پاسخ به تیکت شما!!",
         departmentID: ticket.departmentID,
         departmentSub: ticket.departmentSub,
         priority: ticket.priority,
         body,
         user: req.user._id,
         isAnswer: 1,
+        parent : ticketId,
+        answer : 1
     };
     if (ticket.course) {
         newTicketData.course = ticket.course;
     }
 
     const answerTicket = await ticketModel.create(newTicketData);
+    const updateTicket = await ticketModel.findOneAndUpdate({_Id: ticketId},{
+        answer : 1
+    })
     return res.status(200).json(answerTicket);
 }
 

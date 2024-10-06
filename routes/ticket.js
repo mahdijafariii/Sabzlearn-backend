@@ -12,6 +12,6 @@ router.route("/departments").get(ticketController.departments)
 router.route("/departments/:id/subs/").get(ticketController.departments_sub)
 router.route("/answer").post(authMiddleware,isAdminMiddleware, ticketController.setAnswer)
 router.route("/user/:id").get(authMiddleware, ticketController.getOne)
-router.route('/:id/answer').get(authMiddleware,ticketController.getAnswer);
+router.route('/answer').get(authMiddleware,ticketController.getAnswer);
 
 module.exports = router;
