@@ -15,6 +15,8 @@ const contactRouter = require('./routes/contact')
 const notificationRouter = require("./routes/notification");
 const offRouter = require("./routes/off");
 const articleRouter = require("./routes/article");
+const orderRouter = require("./routes/order");
+
 
 
 
@@ -39,6 +41,7 @@ app.use('/contact',contactRouter)
 app.use('/notification',notificationRouter)
 app.use('/off',offRouter)
 app.use('/article',articleRouter)
+app.use('/order',orderRouter)
 
 
 
