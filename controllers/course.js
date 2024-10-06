@@ -1,5 +1,6 @@
 const courseModel = require('../models/course')
 const sessionModel = require('../models/session')
+const commentModel = require('../models/comment')
 const courseUser = require('../models/course-user');
 const {isValidObjectId} = require("mongoose");
 const addCourseValidator = require("../validators/addCourse");
@@ -220,6 +221,47 @@ const getPresellCourse = async (req, res)=>{
 }
 
 
+const getAllCourses = async (req,res) =>{
+    const courses = await courseModel
+        .find({})
+        .populate("categoryID")
+        .populate("creator")
+        .lean()
+        .sort({ _id: -1 });
+
+    const registers = await courseUser.find({}).lean();
+    const comments = await commentModel.find({}).lean();
+
+    const allCourses = [];
+
+    courses.forEach((course) => {
+        let courseTotalScore = 5;
+        const courseRegisters = registers.filter(
+            (register) => register.course.toString() === course._id.toString()
+        );
+
+        const courseComments = comments.filter((comment) => {
+            return comment.course.toString() === course._id.toString();
+        });
+
+        courseComments.forEach(
+            (comment) => (courseTotalScore += Number(comment.score))
+        );
+
+        allCourses.push({
+            ...course,
+            categoryID: course.categoryID.title,
+            creator: course.creator.name,
+            registers: courseRegisters.length,
+            courseAverageScore: Math.floor(
+                courseTotalScore / (courseComments.length + 1)
+            ),
+        });
+    });
+
+    return res.status(200).json(allCourses);
+}
+
 module.exports = {
     addCourse,
     creatSession,
@@ -232,5 +274,6 @@ module.exports = {
     getCourseInfo,
     removeCourse,
     getRelatedCategory,
-    getPresellCourse
+    getPresellCourse,
+    getAllCourses
 }

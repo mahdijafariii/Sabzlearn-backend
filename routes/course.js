@@ -7,9 +7,7 @@ const isAdminMiddleware = require("../middelware/isAdmin");
 
 const router = express.Router();
 
-router
-    .route("/add-course")
-    .post(
+router.route("/add-course").post(
         multer({ storage: multerStorage.coverDisk, limits: { fileSize: 1000000000 } }).single("cover"),
         authMiddleware,
         isAdminMiddleware,
@@ -37,5 +35,6 @@ router.route('/:href/session-info/:sessionId').get(coursesController.getSessionI
 
 router.route('/sessions/:sessionId').delete(authMiddleware,isAdminMiddleware,coursesController.deleteSession)
 
+router.route("/all-courses").get(coursesController.getAllCourses);
 
 module.exports = router;
