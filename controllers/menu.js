@@ -3,8 +3,20 @@ const menuModel = require("../models/menu")
 const {default: mongoose} = require("mongoose");
 const offModel = require("../models/off");
 const getAll = async (req,res)=>{
+    const menus = await menuModel.find({}).lean();
 
-
+    menus.forEach((menu) => {
+        const submenus = [];
+        for (let i = 0; i < menus.length; i++) {
+            const mainManu = menus[i];
+            if (mainManu.parent?.equals(menu._id)) {
+                submenus.push(menus.splice(i, 1)[0]);
+                i = i - 1;
+            }
+        }
+        menu.submenus = submenus;
+    });
+    return res.status(200).json(menus);
 }
 const create = async (req,res)=>{
     const {href , parent , title} = req.body;
