@@ -16,14 +16,6 @@ const notificationRouter = require("./routes/notification");
 const offRouter = require("./routes/off");
 const articleRouter = require("./routes/article");
 const orderRouter = require("./routes/order");
-
-
-
-
-
-
-
-
 app.use(
     "/courses/covers",
     express.static(path.join(__dirname, "public", "courses", "covers"))
