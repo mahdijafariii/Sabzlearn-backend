@@ -25,14 +25,18 @@ const schema = mongoose.Schema(
             ref: "User",
             required: true,
         },
-        answer : {
+        isAnswer : {
             type : Number, // 0 1
             required : true
         },
         course : {
             type: mongoose.Types.ObjectId,
             ref: "Course",
-        }
+        },
+        parent : {
+            type: mongoose.Types.ObjectId,
+            ref: "Ticket",
+        } // with this we can find that this ticket is answered ticket or not  ...
     },
     { timestamps: true }
 );
