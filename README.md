@@ -40,3 +40,21 @@ The SabzLearn backend project! This Node.js application uses Express to power th
    npm start
    ```
    The server will run on http://localhost:YOUR_PORT.
+
+The application exposes various API routes for handling different functionalities:
+
+## API Routes
+
+
+- **Authentication**: `/api/auth`
+- **Users**: `/api/user`
+- **Categories**: `/api/category`
+- **Courses**: `/api/course`
+- **Comments**: `/api/comment`
+- **Contacts**: `/api/contact`
+- **Notifications**: `/api/notification`
+- **Discounts**: `/api/off`
+- **Articles**: `/api/article`
+- **Orders**: `/api/order`
+- **Tickets**: `/api/ticket`
+- **Menu**: `/api/menu`
