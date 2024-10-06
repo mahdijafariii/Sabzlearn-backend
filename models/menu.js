@@ -15,7 +15,7 @@ const schema = mongoose.Schema(
             ref: "Menu",
             required: false,
         },
-    }
+    },
     { timestamps: true }
 );
 
